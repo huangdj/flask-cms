@@ -16,8 +16,12 @@ def create_app(config_name):
     db.init_app(app)  # 通过 init_app 去实例化db对象
     Session(app)  # 实例化Session
 
-    # 注册前台蓝图
+    # 前台首页蓝图
     from app.home import home_blue
     app.register_blueprint(home_blue)
+
+    # 后台首页蓝图
+    from app.admin import admin_blue
+    app.register_blueprint(admin_blue)
 
     return app  # 最后返回当前app
