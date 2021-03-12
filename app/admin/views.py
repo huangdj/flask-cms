@@ -4,9 +4,11 @@ from app.models import User  # 导入模型
 import re  # 导入正则模块
 from app import db  # 导入 db
 from . import admin_blue  # 导入蓝图对象
-from app.utils.common import login_required  # 引入装饰器
+from app.utils.common import login_required, change_filename
 from app.utils.captcha.captcha import captcha  # 导入captcha扩展
 from app import redis_store, constants  # 导入redis实例
+import os
+from werkzeug.utils import secure_filename
 
 
 # 后台首页路由
@@ -98,3 +100,21 @@ def generate_image_code():
     response = make_response(image)  # 使用响应对象返回图片本身
     response.headers['Content-Type'] = 'image/jpg'  # 设置响应的数据类型
     return response  # 返回响应
+
+
+# 使用插件上传图片
+@admin_blue.route('/admin/photos', methods=['POST'])
+@login_required
+def photos():
+    if request.method == 'POST':
+        # 定义上传目录，如果目录不存在，则自动创建
+        file_dir = os.path.join(os.getcwd(), constants.UPLOAD_FOLDER)
+        if not os.path.exists(file_dir):
+            os.makedirs(file_dir)
+
+        image = request.files['image']  # 获取前端提交过来的图片
+        filename = secure_filename(change_filename(image.filename))  # 修改图片上传的图片名称
+        file_path = os.path.join(constants.UPLOAD_FOLDER, filename)  # 获取上传后的绝对路径
+        image.save(file_path)  # 保存到本地
+        # 返回本地图片地址给前端
+        return jsonify({'image_url': os.path.join('/static/upload', filename)})

@@ -14,7 +14,7 @@
                 <div class="am-u-sm-12">
                     <div class="am-btn-toolbar">
                         <div class="">
-                            <button type="button" onclick="location.href=''"
+                            <button type="button" onclick="location.href='/admin/type/add'"
                                     class="am-btn am-btn-primary"><span class="am-icon-plus"></span>
                                 新增
                             </button>
@@ -37,36 +37,18 @@
                             </thead>
                             <tbody>
 
-                            <tr>
-                                <td>1</td>
-                                <td><a href="javascript:;">商业项目</a></td>
-                                <td>
-                                    <img src="https://image.holyzq.com/vsIuc6EIM3DVN3EMgBOkbRffQmOnVCNHP9CUVQ0t.jpeg" alt="" class="thumb">
-                                </td>
-                                <td>
-                                    <a href="http://www.techbimu.com/admin/types/1/edit">编辑</a>
-                                    <div class="divider divider-vertical"></div>
-                                    <a href="http://www.techbimu.com/admin/types/1" data-method="delete"
-                                       data-token="mVTO1xskhIspfdKGM3KGpQPuSrEQqgPN6xuuZzYa"
-                                       data-confirm="是否确定要删除?">删除</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="javascript:;">办公项目</a></td>
-                                <td>
-                                    <img src="https://image.holyzq.com/2to8Zf0vnyJMbMORfFKpnigTMCg3jRCuNTx5WV6E.jpeg"
-                                         alt=""
-                                         class="thumb">
-                                </td>
-                                <td>
-                                    <a href="http://www.techbimu.com/admin/types/2/edit">编辑</a>
-                                    <div class="divider divider-vertical"></div>
-                                    <a href="http://www.techbimu.com/admin/types/2" data-method="delete"
-                                       data-token="mVTO1xskhIspfdKGM3KGpQPuSrEQqgPN6xuuZzYa"
-                                       data-confirm="是否确定要删除?">删除</a>
-                                </td>
-                            </tr>
+                            {% for type in types %}
+                                <tr>
+                                    <td>{{ type.id }}</td>
+                                    <td><a href="javascript:;">{{ type.name }}</a></td>
+                                    <td><img src="{{ type.image }}" class="thumb"></td>
+                                    <td>
+                                        <a href="">编辑</a>
+                                        <div class="divider divider-vertical"></div>
+                                        <a href="">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </form>
