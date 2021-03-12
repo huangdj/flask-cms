@@ -31,3 +31,18 @@ def add():
         return redirect('/admin/type')
 
     return render_template('admin/type/add.html')
+
+
+# 编辑
+@type_blue.route('/admin/type/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    if request.method == 'POST':
+        type = Type.query.filter_by(id=id).first()
+        type.name = request.form['name']
+        type.image = request.form['image']
+        db.session.commit()
+        flash('编辑成功')
+        return redirect('/admin/type')
+
+    type = Type.query.filter(Type.id == id).first()
+    return render_template('admin/type/edit.html', type=type)

@@ -2,12 +2,12 @@
     <div class="am-offcanvas-bar admin-offcanvas-bar">
         <ul class="am-list admin-sidebar-list">
             <li>
-                <a href="/admin" class="am-active">
+                <a href="/admin" class="{{ _admin or '' }}">
                     <span class="am-icon-dashboard"></span> Dashboard
                 </a>
             </li>
             <li>
-                <a href="/admin/type">
+                <a href="/admin/type" class="{{ _type or '' }}">
                     <span class="am-icon-calendar"></span> 项目类型
                 </a>
             </li>

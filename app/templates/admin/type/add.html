@@ -10,6 +10,9 @@
         </div>
 
         <div class="page-body">
+
+            {% include "admin/common/shared/_flash.html" %}
+
             <form class="am-form am-form-horizontal" action="" method="post">
                 <div class="am-form-group">
                     <label for="name" class="am-u-sm-12 am-u-md-3 am-form-label">名称</label>
@@ -41,7 +44,8 @@
 
                 <div class="am-form-group">
                     <div class="am-u-sm-12 am-u-md-9 am-u-md-offset-3">
-                        <button type="button" onclick="location='/admin/type'" class="am-btn am-btn-default am-btn-sm am-radius">返 回
+                        <button type="button" onclick="location='/admin/type'"
+                                class="am-btn am-btn-default am-btn-sm am-radius">返 回
                         </button>
                         <button type="submit" class="am-btn am-btn-primary am-btn-sm am-radius">保 存</button>
                     </div>

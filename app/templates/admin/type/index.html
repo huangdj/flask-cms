@@ -23,6 +23,8 @@
                 </div>
             </div>
 
+            {% include "admin/common/shared/_flash.html" %}
+
             <div class="am-g am-g-collapse">
                 <div class="am-u-sm-12">
                     <form class="am-form">
@@ -43,7 +45,7 @@
                                     <td><a href="javascript:;">{{ type.name }}</a></td>
                                     <td><img src="{{ type.image }}" class="thumb"></td>
                                     <td>
-                                        <a href="">编辑</a>
+                                        <a href="/admin/type/edit/{{ type.id }}">编辑</a>
                                         <div class="divider divider-vertical"></div>
                                         <a href="">删除</a>
                                     </td>
