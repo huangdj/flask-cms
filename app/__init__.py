@@ -26,4 +26,8 @@ def create_app(config_name):
     from app.admin import admin_blue
     app.register_blueprint(admin_blue)
 
+    # 后台项目类型蓝图
+    from app.admin.type import type_blue
+    app.register_blueprint(type_blue)
+
     return app  # 最后返回当前app
