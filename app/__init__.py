@@ -1,12 +1,14 @@
 from flask import Flask
-from config import config
+from config import config, Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session  # 导入session扩展
+from redis import StrictRedis  # 导入 Redis
 
 app = Flask(__name__)
 db = SQLAlchemy()
 
-app.config.from_object(config['development'])
+# 实例化redis，用来临时缓存和业务逻辑相关的数据，比如说图片验证码、短信验证码、用户信息
+redis_store = StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT, decode_responses=True)
 
 
 # 定义工厂函数，生产app

@@ -1,0 +1,17 @@
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="am-g flash_msg">
+            <div class="am-u-md-12">
+                <div class="am-alert" data-am-alert>
+                    <button type="button" class="am-close">×</button>
+                    <ul>
+                        {% for message in get_flashed_messages() %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}
+

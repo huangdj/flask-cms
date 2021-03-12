@@ -1,10 +1,9 @@
-import os  # 引入 os 模块
 from redis import StrictRedis  # 导入 Redis 扩展包
 
 
 class Config:
     DEBUG = None
-    SECRET_KEY = os.urandom(24)  # 设置密钥
+    SECRET_KEY = 'clwy'  # 设置密钥
     # 配置数据库
     SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost:3306/cms'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
