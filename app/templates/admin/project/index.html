@@ -1,0 +1,110 @@
+{% extends "admin/common/app.html" %}
+
+{% block content %}
+    <div class="admin-content-body">
+        <div class="page-header">
+            <ol class="am-breadcrumb am-breadcrumb-slash">
+                <li><a href="/admin">首页</a></li>
+                <li>项目列表</li>
+            </ol>
+        </div>
+
+        <div class="page-body">
+            <div class="am-g">
+                <form class="am-form am-form-horizontal">
+                    <div class="am-u-sm-12 am-u-md-4">
+                        <div class="am-form-group">
+                            <label for="title" class="am-u-sm-2 am-form-label">名称</label>
+                            <div class="am-u-sm-10">
+                                <input type="text" name="keyword" placeholder="请输入项目名称" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="am-u-sm-12 am-u-md-8">
+                        <div class="am-form-group search-buttons">
+                            <button class="am-btn am-btn-primary" type="submit">查 询</button>
+                            <button class="am-btn am-btn-default" type="button" onclick="location.href='/admin/project'">重 置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <div class="am-btn-toolbar">
+                        <div class="">
+                            <button type="button" onclick="location.href='/admin/project/create'" class="am-btn am-btn-primary"><span class="am-icon-plus"></span>
+                                新增
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="am-g am-g-collapse">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table class="am-table am-table-hover table-main">
+                            <thead>
+                            <tr>
+                                <th class="table-id">ID</th>
+                                <th class="table-title">名称</th>
+                                <th class="table-type">缩略图</th>
+                                <th class="table-type">所属类型</th>
+                                <th class="table-type">所属区域</th>
+                                <th class="table-type">规模</th>
+                                <th class="table-type">业主单位</th>
+                                <th class="table-type">服务范围</th>
+                                <th class="table-type">创建时间</th>
+                                <th class="table-set">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>22</td>
+                                <td><a href="javascript:;">中海苏州思安街超高层</a></td>
+                                <td>
+                                    <img src="https://image.holyzq.com/O80w7Tni45EDO4QjterKK2UuwzE9UIFddw8ovoV5.jpeg" alt="" class="thumb">
+                                </td>
+                                <td class="am-hide-sm-only">办公项目</td>
+                                <td class="am-hide-sm-only">苏州</td>
+                                <td>15万方</td>
+                                <td>中海地产苏州公司</td>
+                                <td>项目整体BIM深化</td>
+                                <td>2020年09月08日</td>
+                                <td>
+                                    <a href="http://www.techbimu.com/admin/projects/22/edit">编辑</a>
+                                    <div class="divider divider-vertical"></div>
+                                    <a href="http://www.techbimu.com/admin/projects/22" data-method="delete"
+                                       data-token="S4uPYyfcB8Idn3D314x5hYt8DrsaHA1oKRN6v4dx"
+                                       data-confirm="是否确定要删除?">删除</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="am-cf">
+                            共 21 条记录
+                            <div class="am-fr">
+                                <ul class="pagination">
+                                    <li class="page-item disabled" aria-disabled="true" aria-label="« 上一页">
+                                        <span class="page-link" aria-hidden="true">‹</span>
+                                    </li>
+                                    <li class="page-item active" aria-current="page"><span class="page-link">1</span>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="http://www.techbimu.com/admin/projects?page=2">2</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="http://www.techbimu.com/admin/projects?page=3">3</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="http://www.techbimu.com/admin/projects?page=2" rel="next" aria-label="下一页 »">›</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -34,4 +34,8 @@ def create_app(config_name):
     from app.admin.area import area_blue
     app.register_blueprint(area_blue)
 
+    # 后台所有项目蓝图
+    from app.admin.project import project_blue
+    app.register_blueprint(project_blue)
+
     return app  # 最后返回当前app

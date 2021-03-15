@@ -1,0 +1,145 @@
+{% extends "admin/common/app.html" %}
+
+{% block content %}
+    <div class="admin-content-body">
+        <div class="page-header">
+            <ol class="am-breadcrumb am-breadcrumb-slash">
+                <li><a href="/admin/project">项目管理</a></li>
+                <li>新增项目</li>
+            </ol>
+        </div>
+
+        <div class="page-body">
+            <form class="am-form am-form-horizontal" action="" method="post">
+                <div class="am-tabs am-margin" data-am-tabs="">
+                    <ul class="am-tabs-nav am-nav am-nav-tabs">
+                        <li class="am-active"><a href="#tab1">通用信息</a></li>
+                        <li class=""><a href="#tab2">项目描述</a></li>
+                        <li class=""><a href="#tab3">轮播图</a></li>
+                    </ul>
+                    <div class="am-tabs-bd"
+                         style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                        <div class="am-tab-panel am-fade am-active am-in" id="tab1">
+                            <div class="am-form-group">
+                                <label class="am-u-sm-12 am-u-md-3 am-form-label">项目名称</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <input type="text" name="name" placeholder="输入项目名称" value="">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-12 am-u-md-3 am-form-label">缩略图</label>
+
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <div class="am-form-group am-form-file">
+                                        <button type="button" class="am-btn am-btn-success am-btn-sm">
+                                            <i class="am-icon-cloud-upload" id="loading"></i> 上传缩略图
+                                        </button>
+                                        <input type="file" class="image_upload">
+                                        <input type="hidden" name="image" value="">
+                                    </div>
+
+                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed am-no-layout">
+
+                                    <div>
+                                        <img src="" class="img_show" style="max-height: 150px;margin-bottom: 10px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="name" class="am-u-sm-12 am-u-md-3 am-form-label">选择类型</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <select data-am-selected="{btnWidth: '100%', btnSize: 'sm', maxHeight: 360}"
+                                            name="type_id" style="display: none;">
+                                        <option value="">请选择</option>
+                                        <option value="1">商业项目</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="name" class="am-u-sm-12 am-u-md-3 am-form-label">选择区域</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <select data-am-selected="{btnWidth: '100%', btnSize: 'sm', maxHeight: 360}"
+                                            name="area_id" style="display: none;">
+                                        <option value="">请选择</option>
+                                        <option value="1">武汉</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-12 am-u-md-3 am-form-label">规模</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <input type="text" name="scale" placeholder="输入规模" value="">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-12 am-u-md-3 am-form-label">业主单位</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <input type="text" name="unit" placeholder="输入业主单位" value="">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-u-sm-12 am-u-md-3 am-form-label">服务范围</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <input type="text" name="service" placeholder="输入服务范围" value="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="am-tab-panel am-fade" id="tab2">
+                            <div class="am-form-group">
+                                <label class="am-u-sm-12 am-u-md-3 am-form-label">描述</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <textarea rows="10" name="description" placeholder="输入描述信息"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="am-tab-panel am-fade" id="tab3">
+                            <div id="uploader">
+                                <div class="queueList">
+                                    <div id="dndArea" class="placeholder">
+                                        <div id="filePicker"></div>
+                                        <p>或将照片拖到这里，单次最多可选300张</p>
+                                    </div>
+                                </div>
+                                <div class="statusBar" style="display:none;">
+                                    <div class="progress">
+                                        <span class="text">0%</span>
+                                        <span class="percentage"></span>
+                                    </div>
+                                    <div class="info"></div>
+                                    <div class="btns">
+                                        <div id="filePicker2"></div>
+                                        <div class="uploadBtn">开始上传</div>
+                                    </div>
+                                </div>
+
+                                <div id="imgs"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <div class="am-u-sm-12 am-u-md-9 am-u-md-offset-3">
+                        <button type="button" onclick="location='/admin/project'"
+                                class="am-btn am-btn-default am-btn-sm am-radius">返 回
+                        </button>
+                        <button type="submit" class="am-btn am-btn-primary am-btn-sm am-radius">保 存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/admin/vendor/html5-fileupload/jquery.html5-fileupload.js"></script>
+    <script src="/static/admin/assets/js/upload.js"></script>
+{% endblock %}

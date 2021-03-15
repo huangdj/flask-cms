@@ -4,7 +4,7 @@ from app.models import User  # 导入模型
 import re  # 导入正则模块
 from app import db  # 导入 db
 from . import admin_blue  # 导入蓝图对象
-from app.utils.common import login_required, change_filename
+from app.utils.common import login_required, change_filename, qiniu_upload
 from app.utils.captcha.captcha import captcha  # 导入captcha扩展
 from app import redis_store, constants  # 导入redis实例
 import os
@@ -102,7 +102,7 @@ def generate_image_code():
     return response  # 返回响应
 
 
-# 使用插件上传图片
+# 使用插件上传图片到本地
 @admin_blue.route('/admin/photos', methods=['POST'])
 @login_required
 def photos():
@@ -118,3 +118,16 @@ def photos():
         image.save(file_path)  # 保存到本地
         # 返回本地图片地址给前端
         return jsonify({'image_url': os.path.join('/static/upload', filename)})
+
+
+# 使用插件上传图片到七牛
+@admin_blue.route('/admin/upload_qiniu', methods=['POST'])
+@login_required
+def upload_qiniu():
+    if request.method == 'POST':
+        file = request.files['image']
+        if file:
+            file_data = file.read()
+            filename = qiniu_upload(file_data)  # 上传到七牛
+            image_url = constants.QINIU_DOMIN_PREFIX + filename
+            return jsonify(image_url=image_url)
