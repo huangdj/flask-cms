@@ -46,3 +46,13 @@ def edit(id):
 
     type = Type.query.filter(Type.id == id).first()
     return render_template('admin/type/edit.html', type=type)
+
+
+# 删除
+@type_blue.route('/admin/type/delete/<int:id>')
+def delete(id):
+    obj = Type.query.filter(Type.id == id).first()
+    db.session.delete(obj)
+    db.session.commit()
+    flash('删除成功')
+    return redirect('/admin/type')

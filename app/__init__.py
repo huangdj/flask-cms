@@ -30,4 +30,8 @@ def create_app(config_name):
     from app.admin.type import type_blue
     app.register_blueprint(type_blue)
 
+    # 后台区域蓝图
+    from app.admin.area import area_blue
+    app.register_blueprint(area_blue)
+
     return app  # 最后返回当前app

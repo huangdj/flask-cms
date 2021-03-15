@@ -1,0 +1,61 @@
+{% extends "admin/common/app.html" %}
+
+{% block content %}
+    <div class="admin-content-body">
+        <div class="page-header">
+            <ol class="am-breadcrumb am-breadcrumb-slash">
+                <li><a href="/admin">首页</a></li>
+                <li>项目区域</li>
+            </ol>
+        </div>
+
+        <div class="page-body">
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <div class="am-btn-toolbar">
+                        <div class="">
+                            <button type="button" onclick="location.href='/admin/area/add'"
+                                    class="am-btn am-btn-primary"><span class="am-icon-plus"></span>
+                                新增
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% include "admin/common/shared/_flash.html" %}
+
+            <div class="am-g am-g-collapse">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table class="am-table am-table-hover table-main">
+                            <thead>
+                            <tr>
+                                <th class="table-id">ID</th>
+                                <th class="table-title">名称</th>
+                                <th class="table-title">创建时间</th>
+                                <th class="table-set">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for area in areas %}
+                                <tr>
+                                    <td>{{ area.id }}</td>
+                                    <td><a href="javascript:;">{{ area.name }}</a></td>
+                                    <td>{{ area.create_time }}</td>
+                                    <td>
+                                        <a href="/admin/area/edit/{{ area.id }}">编辑</a>
+                                        <div class="divider divider-vertical"></div>
+                                        <a href="/admin/area/delete/{{ area.id }}" onclick="if(confirm('确实要删除数据吗？')) return true;else return false; ">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

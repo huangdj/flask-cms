@@ -1,0 +1,35 @@
+{% extends "admin/common/app.html" %}
+
+{% block content %}
+    <div class="admin-content-body">
+        <div class="page-header">
+            <ol class="am-breadcrumb am-breadcrumb-slash">
+                <li><a href="/admin/area">首页</a></li>
+                <li>新增区域</li>
+            </ol>
+        </div>
+
+        <div class="page-body">
+
+            {% include "admin/common/shared/_flash.html" %}
+
+            <form class="am-form am-form-horizontal" action="" method="post">
+                <div class="am-form-group">
+                    <label for="name" class="am-u-sm-12 am-u-md-3 am-form-label">名称</label>
+                    <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                        <input type="text" name="name" placeholder="输入区域名称">
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <div class="am-u-sm-12 am-u-md-9 am-u-md-offset-3">
+                        <button type="button" onclick="location='/admin/area'"
+                                class="am-btn am-btn-default am-btn-sm am-radius">返 回
+                        </button>
+                        <button type="submit" class="am-btn am-btn-primary am-btn-sm am-radius">保 存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

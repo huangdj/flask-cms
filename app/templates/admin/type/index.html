@@ -47,7 +47,7 @@
                                     <td>
                                         <a href="/admin/type/edit/{{ type.id }}">编辑</a>
                                         <div class="divider divider-vertical"></div>
-                                        <a href="">删除</a>
+                                        <a href="/admin/type/delete/{{ type.id }}" onclick="if(confirm('确实要删除数据吗？')) return true;else return false; ">删除</a>
                                     </td>
                                 </tr>
                             {% endfor %}

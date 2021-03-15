@@ -41,3 +41,11 @@ class Type(BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(255), unique=True, nullable=False)  # 类型名称
     image = db.Column(db.String(255), unique=True, nullable=False)  # 缩略图
+
+
+class Area(BaseModel, db.Model):
+    """区域表"""
+    __tablename__ = "area"
+
+    id = db.Column(db.Integer, primary_key=True)  # 编号
+    name = db.Column(db.String(255), unique=True, nullable=False)  # 类型名称
