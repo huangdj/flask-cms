@@ -131,3 +131,33 @@ def upload_qiniu():
             filename = qiniu_upload(file_data)  # 上传到七牛
             image_url = constants.QINIU_DOMIN_PREFIX + filename
             return jsonify(image_url=image_url)
+
+
+# 富文本编辑器上传图片到七牛
+@admin_blue.route('/admin/submit-image', methods=['GET', 'POST'])
+def submit_image():
+    '''富文本图片上传方法'''
+    file = request.files['file']
+    try:
+        img = file.read()
+        # print(img)
+    except Exception:
+        return jsonify(status=0, msg="图片读取失败")
+
+    key = qiniu_upload(img)
+
+    img_url = constants.QINIU_DOMIN_PREFIX + key
+    return '{"error":false,"path":"' + img_url + '"}'
+
+
+# 多图上传
+@admin_blue.route('/admin/webUploader', methods=['POST'])
+@login_required
+def webUploader():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file:
+            file_data = file.read()
+            filename = qiniu_upload(file_data)  # 上传到七牛
+            image_url = constants.QINIU_DOMIN_PREFIX + filename
+            return jsonify({'image_url': image_url})

@@ -1,5 +1,10 @@
 {% extends "admin/common/app.html" %}
 
+{% block css %}
+    <link rel="stylesheet" href="/static/admin/vendor/webupload/dist/webuploader.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/admin/vendor/webupload/style.css"/>
+{% endblock %}
+
 {% block content %}
     <div class="admin-content-body">
         <div class="page-header">
@@ -28,6 +33,32 @@
                             </div>
 
                             <div class="am-form-group">
+                                <label for="name" class="am-u-sm-12 am-u-md-3 am-form-label">选择类型</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <select data-am-selected="{btnWidth: '100%', btnSize: 'sm', maxHeight: 360}"
+                                            name="type_id" style="display: none;">
+                                        <option value="">请选择</option>
+                                        {% for type in types %}
+                                            <option value="{{ type.id }}">{{ type.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="name" class="am-u-sm-12 am-u-md-3 am-form-label">选择区域</label>
+                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
+                                    <select data-am-selected="{btnWidth: '100%', btnSize: 'sm', maxHeight: 360}"
+                                            name="area_id" style="display: none;">
+                                        <option value="">请选择</option>
+                                        {% for area in areas %}
+                                            <option value="{{ area.id }}">{{ area.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
                                 <label class="am-u-sm-12 am-u-md-3 am-form-label">缩略图</label>
 
                                 <div class="am-u-sm-12 am-u-md-5 am-u-end">
@@ -39,33 +70,12 @@
                                         <input type="hidden" name="image" value="">
                                     </div>
 
-                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed am-no-layout">
+                                    <hr data-am-widget="divider" style=""
+                                        class="am-divider am-divider-dashed am-no-layout">
 
                                     <div>
                                         <img src="" class="img_show" style="max-height: 150px;margin-bottom: 10px;">
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="name" class="am-u-sm-12 am-u-md-3 am-form-label">选择类型</label>
-                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
-                                    <select data-am-selected="{btnWidth: '100%', btnSize: 'sm', maxHeight: 360}"
-                                            name="type_id" style="display: none;">
-                                        <option value="">请选择</option>
-                                        <option value="1">商业项目</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="name" class="am-u-sm-12 am-u-md-3 am-form-label">选择区域</label>
-                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
-                                    <select data-am-selected="{btnWidth: '100%', btnSize: 'sm', maxHeight: 360}"
-                                            name="area_id" style="display: none;">
-                                        <option value="">请选择</option>
-                                        <option value="1">武汉</option>
-                                    </select>
                                 </div>
                             </div>
 
@@ -93,9 +103,9 @@
 
                         <div class="am-tab-panel am-fade" id="tab2">
                             <div class="am-form-group">
-                                <label class="am-u-sm-12 am-u-md-3 am-form-label">描述</label>
-                                <div class="am-u-sm-12 am-u-md-5 am-u-end">
-                                    <textarea rows="10" name="description" placeholder="输入描述信息"></textarea>
+                                <div class="am-u-sm-12 am-u-md-12 am-u-end">
+                                    <textarea rows="10" name="description" id="rich_content"
+                                              placeholder="输入描述信息"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -142,4 +152,11 @@
 {% block js %}
     <script src="/static/admin/vendor/html5-fileupload/jquery.html5-fileupload.js"></script>
     <script src="/static/admin/assets/js/upload.js"></script>
+
+    <script type="text/javascript" src="/static/admin/vendor/webupload/dist/webuploader.js"></script>
+    <script type="text/javascript" src="/static/admin/vendor/webupload/upload.js"></script>
+
+    <script src="/static/admin/assets/js/jquery-2.0.3.min.js"></script>    {# 引入低版本的jQuery #}
+    <script src="/static/admin/vendor/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script src="/static/admin/assets/js/tinymce_config.js"></script>
 {% endblock %}

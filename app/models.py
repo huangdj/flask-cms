@@ -22,17 +22,6 @@ class User(BaseModel, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
-        resp_dict = {
-            "id": self.id,
-            "username": self.username,
-            "password": self.password,
-            "mobile": self.mobile,
-            "register": self.create_time.strftime("%Y-%m-%d %H:%M:%S"),
-            "last_login": self.last_login.strftime("%Y-%m-%d %H:%M:%S"),
-        }
-        return resp_dict
-
 
 class Type(BaseModel, db.Model):
     """类型表"""
@@ -49,3 +38,35 @@ class Area(BaseModel, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(255), unique=True, nullable=False)  # 类型名称
+
+
+class Project(BaseModel, db.Model):
+    """项目表"""
+    __tablename__ = "project"
+
+    id = db.Column(db.Integer, primary_key=True)  # 编号
+    type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=False)  # 所属类型
+    area_id = db.Column(db.Integer, db.ForeignKey('area.id'), nullable=False)  # 所属区域
+    name = db.Column(db.String(255), unique=True, nullable=False)  # 名称
+    image = db.Column(db.String(255), nullable=False)  # 缩略图
+    scale = db.Column(db.String(255), nullable=False)  # 规模
+    unit = db.Column(db.String(255), nullable=False)  # 单位
+    service = db.Column(db.String(255), nullable=False)  # 服务
+    description = db.Column(db.Text(), nullable=False)  # 描述
+    # 创建关系属性  relationship("关联的类名", backref="对方表查询关联数据时的属性名")
+    galleries = db.relationship("Gallery", backref="project")
+
+    def to_dict(self):
+        resp_dict = {
+            "id": self.id,
+        }
+        return resp_dict
+
+
+class Gallery(BaseModel, db.Model):
+    """项目相册表"""
+    __tablename__ = "gallery"
+
+    id = db.Column(db.Integer, primary_key=True)  # 编号
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))  # 所属项目
+    imgs = db.Column(db.String(255), unique=True, nullable=False)  # 相册地址
