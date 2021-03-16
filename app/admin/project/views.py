@@ -9,7 +9,8 @@ from app import db
 @project_blue.route('/admin/project')
 @login_required
 def index():
-    return render_template('admin/project/index.html')
+    projects = Project.query.order_by(-Project.id).all()
+    return render_template('admin/project/index.html', projects=projects)
 
 
 # 新增项目

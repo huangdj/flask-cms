@@ -24,7 +24,9 @@
                     <div class="am-u-sm-12 am-u-md-8">
                         <div class="am-form-group search-buttons">
                             <button class="am-btn am-btn-primary" type="submit">查 询</button>
-                            <button class="am-btn am-btn-default" type="button" onclick="location.href='/admin/project'">重 置</button>
+                            <button class="am-btn am-btn-default" type="button"
+                                    onclick="location.href='/admin/project'">重 置
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -34,7 +36,8 @@
                 <div class="am-u-sm-12">
                     <div class="am-btn-toolbar">
                         <div class="">
-                            <button type="button" onclick="location.href='/admin/project/create'" class="am-btn am-btn-primary"><span class="am-icon-plus"></span>
+                            <button type="button" onclick="location.href='/admin/project/create'"
+                                    class="am-btn am-btn-primary"><span class="am-icon-plus"></span>
                                 新增
                             </button>
                         </div>
@@ -61,26 +64,27 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>22</td>
-                                <td><a href="javascript:;">中海苏州思安街超高层</a></td>
-                                <td>
-                                    <img src="https://image.holyzq.com/O80w7Tni45EDO4QjterKK2UuwzE9UIFddw8ovoV5.jpeg" alt="" class="thumb">
-                                </td>
-                                <td class="am-hide-sm-only">办公项目</td>
-                                <td class="am-hide-sm-only">苏州</td>
-                                <td>15万方</td>
-                                <td>中海地产苏州公司</td>
-                                <td>项目整体BIM深化</td>
-                                <td>2020年09月08日</td>
-                                <td>
-                                    <a href="http://www.techbimu.com/admin/projects/22/edit">编辑</a>
-                                    <div class="divider divider-vertical"></div>
-                                    <a href="http://www.techbimu.com/admin/projects/22" data-method="delete"
-                                       data-token="S4uPYyfcB8Idn3D314x5hYt8DrsaHA1oKRN6v4dx"
-                                       data-confirm="是否确定要删除?">删除</a>
-                                </td>
-                            </tr>
+
+                            {% for project in projects %}
+                                <tr>
+                                    <td>{{ project.id }}</td>
+                                    <td><a href="javascript:;">{{ project.name }}</a></td>
+                                    <td>
+                                        <img src="{{ project.image }}" alt="" class="thumb">
+                                    </td>
+                                    <td class="am-hide-sm-only">{{ project.type.name }}</td>
+                                    <td class="am-hide-sm-only">{{ project.area.name }}</td>
+                                    <td>{{ project.scale }}</td>
+                                    <td>{{ project.unit }}</td>
+                                    <td>{{ project.service }}</td>
+                                    <td>{{ project.create_time }}</td>
+                                    <td>
+                                        <a href="">编辑</a>
+                                        <div class="divider divider-vertical"></div>
+                                        <a href="">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                         <div class="am-cf">
@@ -92,12 +96,15 @@
                                     </li>
                                     <li class="page-item active" aria-current="page"><span class="page-link">1</span>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="http://www.techbimu.com/admin/projects?page=2">2</a>
+                                    <li class="page-item"><a class="page-link"
+                                                             href="http://www.techbimu.com/admin/projects?page=2">2</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="http://www.techbimu.com/admin/projects?page=3">3</a>
+                                    <li class="page-item"><a class="page-link"
+                                                             href="http://www.techbimu.com/admin/projects?page=3">3</a>
                                     </li>
                                     <li class="page-item">
-                                        <a class="page-link" href="http://www.techbimu.com/admin/projects?page=2" rel="next" aria-label="下一页 »">›</a>
+                                        <a class="page-link" href="http://www.techbimu.com/admin/projects?page=2"
+                                           rel="next" aria-label="下一页 »">›</a>
                                     </li>
                                 </ul>
                             </div>

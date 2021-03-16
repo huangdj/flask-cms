@@ -54,7 +54,9 @@ class Project(BaseModel, db.Model):
     service = db.Column(db.String(255), nullable=False)  # 服务
     description = db.Column(db.Text(), nullable=False)  # 描述
     # 创建关系属性  relationship("关联的类名", backref="对方表查询关联数据时的属性名")
-    galleries = db.relationship("Gallery", backref="project")
+    gallery = db.relationship("Gallery", backref="project")
+    type = db.relationship("Type", backref="project")
+    area = db.relationship("Area", backref="project")
 
     def to_dict(self):
         resp_dict = {
