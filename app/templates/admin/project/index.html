@@ -77,7 +77,7 @@
                                     <td>{{ project.scale }}</td>
                                     <td>{{ project.unit }}</td>
                                     <td>{{ project.service }}</td>
-                                    <td>{{ project.create_time }}</td>
+                                    <td>{{ project.create_time|strftime }}</td>
                                     <td>
                                         <a href="/admin/project/edit/{{ project.id }}">编辑</a>
                                         <div class="divider divider-vertical"></div>

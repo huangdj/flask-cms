@@ -18,6 +18,13 @@ def create_app(config_name):
     db.init_app(app)  # 通过 init_app 去实例化db对象
     Session(app)  # 实例化Session
 
+    # 定义时间日期格式化
+    @app.template_filter('strftime')
+    def _jinja2_filter_datetime(date, fmt=None):
+        if fmt is None:
+            fmt = '%Y年%m月%d日'
+        return date.strftime(fmt)
+
     # 前台首页蓝图
     from app.home import home_blue
     app.register_blueprint(home_blue)
