@@ -73,10 +73,3 @@ class Gallery(BaseModel, db.Model):
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))  # 所属项目
     imgs = db.Column(db.String(255), unique=True, nullable=False)  # 相册地址
 
-    def to_dict(self):
-        resp_dict = {
-            "id": self.id,
-            "project_id": self.project_id,
-            "imgs": self.imgs,
-        }
-        return resp_dict

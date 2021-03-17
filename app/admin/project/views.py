@@ -1,4 +1,4 @@
-from flask import render_template, request, flash, redirect
+from flask import render_template, request, flash, redirect, json, jsonify
 from . import project_blue
 from app.utils.common import login_required
 from app.models import Project, Gallery
@@ -83,3 +83,13 @@ def edit(id):
     project = Project.query.filter(Project.id == id).first()
     galleries = project.gallery
     return render_template('admin/project/edit.html', project=project, galleries=galleries)
+
+
+# 删除相册
+@project_blue.route('/admin/project/del_gallery', methods=['DELETE'])
+def del_gallery():
+    data = json.loads(request.get_data())
+    obj = Gallery.query.filter_by(id=data['id']).first()
+    db.session.delete(obj)
+    db.session.commit()
+    return jsonify(status=1, msg='删除成功')

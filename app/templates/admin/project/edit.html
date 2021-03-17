@@ -3,6 +3,11 @@
 {% block css %}
     <link rel="stylesheet" href="/static/admin/vendor/webupload/dist/webuploader.css"/>
     <link rel="stylesheet" type="text/css" href="/static/admin/vendor/webupload/style.css"/>
+    <style>
+        .cancel {
+            cursor: pointer;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -39,7 +44,8 @@
                                             name="type_id" style="display: none;">
                                         <option value="">请选择</option>
                                         {% for type in types %}
-                                            <option value="{{ type.id }}" {% if project.type_id == type.id %} selected {% endif %}>{{ type.name }}</option>
+                                            <option value="{{ type.id }}" {% if project.type_id == type.id %}
+                                                    selected {% endif %}>{{ type.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -52,7 +58,8 @@
                                             name="area_id" style="display: none;">
                                         <option value="">请选择</option>
                                         {% for area in areas %}
-                                            <option value="{{ area.id }}" {% if project.area_id == area.id %} selected {% endif %}>{{ area.name }}</option>
+                                            <option value="{{ area.id }}" {% if project.area_id == area.id %}
+                                                    selected {% endif %}>{{ area.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -70,10 +77,12 @@
                                         <input type="hidden" name="image" value="{{ project.image }}">
                                     </div>
 
-                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed am-no-layout">
+                                    <hr data-am-widget="divider" style=""
+                                        class="am-divider am-divider-dashed am-no-layout">
 
                                     <div>
-                                        <img src="{{ project.image }}" class="img_show" style="max-height: 150px;margin-bottom: 10px;">
+                                        <img src="{{ project.image }}" class="img_show"
+                                             style="max-height: 150px;margin-bottom: 10px;">
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +104,8 @@
                             <div class="am-form-group">
                                 <label class="am-u-sm-12 am-u-md-3 am-form-label">服务范围</label>
                                 <div class="am-u-sm-12 am-u-md-5 am-u-end">
-                                    <input type="text" name="service" placeholder="输入服务范围" value="{{ project.service }}">
+                                    <input type="text" name="service" placeholder="输入服务范围"
+                                           value="{{ project.service }}">
                                 </div>
                             </div>
                         </div>
@@ -103,7 +113,8 @@
                         <div class="am-tab-panel am-fade" id="tab2">
                             <div class="am-form-group">
                                 <div class="am-u-sm-12 am-u-md-12 am-u-end">
-                                    <textarea rows="10" name="description" id="rich_content" placeholder="输入描述信息">{{ project.description }}</textarea>
+                                    <textarea rows="10" name="description" id="rich_content"
+                                              placeholder="输入描述信息">{{ project.description }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -116,9 +127,7 @@
                                 {% for gallery in galleries %}
                                     <li>
                                         <div class="am-gallery-item">
-                                            <a href="javascript:;">
-                                                <img src="{{ gallery.imgs }}"/>
-                                            </a>
+                                            <img src="{{ gallery.imgs }}"/>
                                             <div class="file-panel">
                                                 <span class="cancel" data-id="{{ gallery.id }}">删除</span>
                                             </div>
@@ -175,4 +184,25 @@
     <script src="/static/admin/assets/js/jquery-2.0.3.min.js"></script>    {# 引入低版本的jQuery #}
     <script src="/static/admin/vendor/tinymce/js/tinymce/tinymce.min.js"></script>
     <script src="/static/admin/assets/js/tinymce_config.js"></script>
+    <script>
+        $(function () {
+            $('.cancel').click(function () {
+                if (confirm('删除后不可恢复，请慎重！')) {
+                    var id = $(this).data('id')
+                    var _this = $(this)
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/project/del_gallery",
+                        data: JSON.stringify({id: id}),
+                        success: function (data) {
+                            if (data.status == 1) {
+                                alert(data.msg)
+                                _this.parents('li').remove()
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 {% endblock %}
