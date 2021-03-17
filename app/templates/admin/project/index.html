@@ -40,6 +40,9 @@
                                     class="am-btn am-btn-primary"><span class="am-icon-plus"></span>
                                 新增
                             </button>
+                            <button type="button" class="am-btn am-btn-default destroy_checked">
+                                <span class="am-icon-trash-o"></span> 删除
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -53,6 +56,7 @@
                         <table class="am-table am-table-hover table-main">
                             <thead>
                             <tr>
+                                <th class="table-check"><input type="checkbox" id="checked_all"/></th>
                                 <th class="table-id">ID</th>
                                 <th class="table-title">名称</th>
                                 <th class="table-type">缩略图</th>
@@ -69,6 +73,8 @@
 
                             {% for project in projects %}
                                 <tr>
+                                    <td><input type="checkbox" class="checked_id" name="checked_id"
+                                               value="{{ project.id }}"/></td>
                                     <td>{{ project.id }}</td>
                                     <td><a href="javascript:;">{{ project.name }}</a></td>
                                     <td>
@@ -83,7 +89,7 @@
                                     <td>
                                         <a href="/admin/project/edit/{{ project.id }}">编辑</a>
                                         <div class="divider divider-vertical"></div>
-                                        <a href="">删除</a>
+                                        <a href="/admin/project/delete/{{ project.id }}">删除</a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -111,4 +117,44 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(function () {
+            $('#checked_all').click(function () {
+                $(':checkbox').prop("checked", this.checked);
+            })
+
+            $('.destroy_checked').click(function () {
+                var length = $('.checked_id:checked').length;
+                if (length == 0) {
+                    alert('您至少要选中一条数据');
+                    return false;
+                }
+
+                var checked_ids = new Array();
+                $("input[name='checked_id']:checked").each(function () {
+                    checked_ids.push($(this).val())
+                });
+
+                if (confirm('是否确定要删除？')) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "/admin/project/destroy_checked",
+                        data: {checked_ids: checked_ids.toString()},
+                        dataType: 'json',
+                        success: function (data) {
+                            {#console.log(data)#}
+                            if (data.status == 1) {
+                                alert(data.msg);
+                                $('.checked_id:checked').each(function () {
+                                    $(this).parents('tr').remove();
+                                })
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 {% endblock %}

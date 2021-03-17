@@ -7,7 +7,7 @@ import re
 
 
 # 项目列表
-@project_blue.route('/admin/project/')
+@project_blue.route('/admin/project/')  # 注意这里路由的后面一定要打 / ，否则点击下一页的时候找不到url地址
 @login_required
 def index():
     page = int(request.args.get('page', 1))  # 当前页数
@@ -102,4 +102,29 @@ def del_gallery():
     obj = Gallery.query.filter_by(id=data['id']).first()
     db.session.delete(obj)
     db.session.commit()
+    return jsonify(status=1, msg='删除成功')
+
+
+# 删除项目，同时删除关联的相册
+@project_blue.route('/admin/project/delete/<int:id>')
+def delete(id):
+    obj = Project.query.filter(Project.id == id).first()
+    db.session.delete(obj)
+    db.session.commit()
+    flash('删除成功')
+    return redirect('/admin/project')
+
+
+# 批量删除
+@project_blue.route('/admin/project/destroy_checked', methods=['DELETE'])
+def delete_checked():
+    data = request.values.get('checked_ids').split(',')
+    # print(data)
+    # print(type(data))
+
+    for value in data:
+        obj = Project.query.filter(Project.id == value).first()
+        db.session.delete(obj)
+        db.session.commit()
+
     return jsonify(status=1, msg='删除成功')
