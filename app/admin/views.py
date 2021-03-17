@@ -160,4 +160,4 @@ def webUploader():
             file_data = file.read()
             filename = qiniu_upload(file_data)  # 上传到七牛
             image_url = constants.QINIU_DOMIN_PREFIX + filename
-            return jsonify({'image_url': image_url})
+            return jsonify(image_url=image_url)

@@ -54,9 +54,9 @@ class Project(BaseModel, db.Model):
     service = db.Column(db.String(255), nullable=False)  # 服务
     description = db.Column(db.Text(), nullable=False)  # 描述
     # 创建关系属性  relationship("关联的类名", backref="对方表查询关联数据时的属性名")
-    gallery = db.relationship("Gallery", backref="project")
     type = db.relationship("Type", backref="project")
     area = db.relationship("Area", backref="project")
+    gallery = db.relationship("Gallery", backref="project")
 
     def to_dict(self):
         resp_dict = {
@@ -72,3 +72,11 @@ class Gallery(BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key=True)  # 编号
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))  # 所属项目
     imgs = db.Column(db.String(255), unique=True, nullable=False)  # 相册地址
+
+    def to_dict(self):
+        resp_dict = {
+            "id": self.id,
+            "project_id": self.project_id,
+            "imgs": self.imgs,
+        }
+        return resp_dict
