@@ -90,24 +90,19 @@
                             </tbody>
                         </table>
                         <div class="am-cf">
-                            共 21 条记录
+                            共 {{ paginate.total }} 条记录
                             <div class="am-fr">
-                                <ul class="pagination">
-                                    <li class="page-item disabled" aria-disabled="true" aria-label="« 上一页">
-                                        <span class="page-link" aria-hidden="true">‹</span>
-                                    </li>
-                                    <li class="page-item active" aria-current="page"><span class="page-link">1</span>
-                                    </li>
-                                    <li class="page-item"><a class="page-link"
-                                                             href="http://www.techbimu.com/admin/projects?page=2">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link"
-                                                             href="http://www.techbimu.com/admin/projects?page=3">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="http://www.techbimu.com/admin/projects?page=2"
-                                           rel="next" aria-label="下一页 »">›</a>
-                                    </li>
+                                <ul class="am-pagination">
+                                    {% if paginate.has_prev %}
+                                        <li class="am-disabled"><a
+                                                href="/admin/project/?page={{ paginate.prev_num }}">«</a></li>
+                                    {% endif %}
+                                    {% for i in paginate.iter_pages() %}
+                                        <li><a href="/admin/project/?page={{ i }}">{{ i }}</a></li>
+                                    {% endfor %}
+                                    {% if paginate.has_next %}
+                                        <li><a href="/admin/project/?page={{ paginate.next_num }}">»</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>

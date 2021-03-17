@@ -10,15 +10,18 @@ import re
 @project_blue.route('/admin/project/')
 @login_required
 def index():
-    # 按关键词搜索
+    page = int(request.args.get('page', 1))  # 当前页数
+    per_page = int(request.args.get('per_page', 10))  # 每页显示的数据条数
     keyword = request.args.get('keyword')
     if keyword:
         where = Project.name.like("%" + keyword + "%")
-        projects = Project.query.filter(where).order_by(-Project.id).all()
+        paginate = Project.query.filter(where).order_by(-Project.id).paginate(page, per_page, error_out=False)
+        projects = paginate.items
         return render_template('admin/project/index.html', projects=projects)
     else:
-        projects = Project.query.order_by(-Project.id).all()
-    return render_template('admin/project/index.html', projects=projects)
+        paginate = Project.query.order_by(-Project.id).paginate(page, per_page)
+        projects = paginate.items
+    return render_template('admin/project/index.html', projects=projects, paginate=paginate, error_out=True)
 
 
 # 新增项目
