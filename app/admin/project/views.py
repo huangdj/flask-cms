@@ -7,10 +7,17 @@ import re
 
 
 # 项目列表
-@project_blue.route('/admin/project')
+@project_blue.route('/admin/project/')
 @login_required
 def index():
-    projects = Project.query.order_by(-Project.id).all()
+    # 按关键词搜索
+    keyword = request.args.get('keyword')
+    if keyword:
+        where = Project.name.like("%" + keyword + "%")
+        projects = Project.query.filter(where).order_by(-Project.id).all()
+        return render_template('admin/project/index.html', projects=projects)
+    else:
+        projects = Project.query.order_by(-Project.id).all()
     return render_template('admin/project/index.html', projects=projects)
 
 
