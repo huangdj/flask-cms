@@ -56,7 +56,8 @@ class Project(BaseModel, db.Model):
     # 创建关系属性  relationship("关联的类名", backref="对方表查询关联数据时的属性名")
     type = db.relationship("Type", backref="project")
     area = db.relationship("Area", backref="project")
-    gallery = db.relationship("Gallery", backref="project")
+    gallery = db.relationship("Gallery", backref="project", cascade="delete, delete-orphan", single_parent=True,
+                              lazy='dynamic')  # 删除项目的时候，对应关联的相册也一并删除，注意底下的 ondelete='cascade' 也要定义
 
     def to_dict(self):
         resp_dict = {
@@ -70,7 +71,7 @@ class Gallery(BaseModel, db.Model):
     __tablename__ = "gallery"
 
     id = db.Column(db.Integer, primary_key=True)  # 编号
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))  # 所属项目
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id', ondelete='cascade'))  # 所属项目
     imgs = db.Column(db.String(255), unique=True, nullable=False)  # 相册地址
 
 
