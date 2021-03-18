@@ -1,0 +1,71 @@
+{% extends "admin/common/app.html" %}
+
+{% block content %}
+    <div class="admin-content-body">
+        <div class="page-header">
+            <ol class="am-breadcrumb am-breadcrumb-slash">
+                <li><a href="/admin">首页</a></li>
+                <li>培训服务</li>
+            </ol>
+        </div>
+
+        <div class="page-body">
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <div class="am-btn-toolbar">
+                        <div class="">
+                            <button type="button" onclick="location.href='/admin/train/create'"
+                                    class="am-btn am-btn-primary"><span class="am-icon-plus"></span>
+                                新增
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="am-g am-g-collapse">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table class="am-table am-table-hover table-main">
+                            <thead>
+                            <tr>
+                                <th class="table-id">ID</th>
+                                <th class="table-title">标题</th>
+                                <th class="table-type">缩略图</th>
+                                <th class="table-type">所属类型</th>
+                                <th class="table-set">发布日期</th>
+                                <th class="table-set">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for train in trains %}
+                                <tr>
+                                    <td>{{ train.id }}</td>
+                                    <td><a href="javascript:;">{{ train.title }}</a></td>
+                                    <td>
+                                        <img src="{{ train.image }}" class="thumb">
+                                    </td>
+                                    <td>{{ train.test.name }}</td>
+                                    <td>{{ train.create_time|strftime }}</td>
+                                    <td>
+                                        <a href="/admin/train/edit/{{ train.id }}">编辑</a>
+                                        <div class="divider divider-vertical"></div>
+                                        <a href="/admin/train/delete/{{ train.id }}">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="am-cf">
+                            共 {{ trains_count }} 条记录
+                            <div class="am-fr">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

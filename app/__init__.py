@@ -45,4 +45,8 @@ def create_app(config_name):
     from app.admin.project import project_blue
     app.register_blueprint(project_blue)
 
+    # 后台培训服务蓝图
+    from app.admin.train import train_blue
+    app.register_blueprint(train_blue)
+
     return app  # 最后返回当前app

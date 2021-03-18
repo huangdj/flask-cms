@@ -73,3 +73,22 @@ class Gallery(BaseModel, db.Model):
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))  # 所属项目
     imgs = db.Column(db.String(255), unique=True, nullable=False)  # 相册地址
 
+
+class Train(BaseModel, db.Model):
+    """培训服务表"""
+    __tablename__ = "train"
+
+    id = db.Column(db.Integer, primary_key=True)  # 编号
+    title = db.Column(db.String(255), nullable=False)  # 标题
+    test_id = db.Column(db.Integer, db.ForeignKey('test.id'), nullable=False)  # 培训类型
+    image = db.Column(db.String(255), nullable=False)  # 缩略图
+    content = db.Column(db.Text(), nullable=False)  # 内容
+    test = db.relationship("Test", backref="train")  # 关联服务类型模型
+
+
+class Test(BaseModel, db.Model):
+    """服务类型表"""
+    __tablename__ = "test"
+
+    id = db.Column(db.Integer, primary_key=True)  # 编号
+    name = db.Column(db.String(255), nullable=False)  # 类型名称
