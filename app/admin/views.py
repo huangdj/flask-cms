@@ -1,6 +1,6 @@
 from flask import render_template, request, jsonify, json, flash, redirect, session, make_response
 from werkzeug.security import generate_password_hash
-from app.models import User  # 导入模型
+from app.models import User, Project  # 导入模型
 import re  # 导入正则模块
 from app import db  # 导入 db
 from . import admin_blue  # 导入蓝图对象
@@ -9,6 +9,7 @@ from app.utils.captcha.captcha import captcha  # 导入captcha扩展
 from app import redis_store, constants  # 导入redis实例
 import os
 from werkzeug.utils import secure_filename
+from datetime import datetime
 
 
 # 后台首页路由
@@ -161,3 +162,20 @@ def webUploader():
             filename = qiniu_upload(file_data)  # 上传到七牛
             image_url = constants.QINIU_DOMIN_PREFIX + filename
             return jsonify(image_url=image_url)
+
+
+@admin_blue.route('/admin/project_count')
+@login_required
+def project_count():
+    # 当前的年份
+    year = datetime.now().year
+    num = []
+    for m in range(12):
+        i = m + 1
+        month = '0' + (str(i)) if len(str(i)) == 1 else i
+        res = str(year) + '-' + str(month) + '%'
+        number = Project.query.filter(Project.create_time.like(res)).count()
+        for n in str(number):
+            num.append(n)
+
+    return jsonify(this_year=year, num=num)

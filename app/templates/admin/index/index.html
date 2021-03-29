@@ -8,7 +8,7 @@
                 <li class="am-active">Dashboard</li>
             </ol>
 
-            <h1>早安，Ruby Ryuu，祝你开心每一天！</h1>
+            <h1>{{ result }}，{{ session.get('user')['username'].capitalize() }}，祝你开心每一天！</h1>
         </div>
 
         <div class="page-body">
@@ -30,6 +30,14 @@
                             class="am-icon-btn am-icon-user-md"></span><br/>在线用户<br/>3000</a>
                 </li>
             </ul>
+
+            <div id="project_count" style="height:400px;margin-top: 80px;"></div>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/admin/vendor/echarts/echarts.min.js"></script>
+    <script src="/static/admin/vendor/echarts/macarons.js"></script>
+    <script src="/static/admin/assets/js/project_count.js"></script>
 {% endblock %}

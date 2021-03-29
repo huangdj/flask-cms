@@ -3,6 +3,7 @@ from config import config, Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session  # 导入session扩展
 from redis import StrictRedis  # 导入 Redis
+from datetime import datetime
 
 app = Flask(__name__)
 db = SQLAlchemy()
@@ -24,6 +25,21 @@ def create_app(config_name):
         if fmt is None:
             fmt = '%Y年%m月%d日'
         return date.strftime(fmt)
+
+    # 自定义全局辅助函数，根据当前时间显示礼貌提示语
+    @app.context_processor
+    def get_time():
+        no = datetime.now().hour
+        if no > 0 and no <= 6:
+            return {"result": "凌晨好"}
+        if no > 6 and no < 12:
+            return {"result": "上午好"}
+        if no >= 12 and no < 13:
+            return {"result": "中午好"}
+        if no >= 13 and no <= 18:
+            return {"result": "下午好"}
+        if no > 18 and no <= 24:
+            return {"result": "晚上好"}
 
     # 前台首页蓝图
     from app.home import home_blue
