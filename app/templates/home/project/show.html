@@ -1,230 +1,132 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>必慕科技：一流的BIM咨询团队</title>
-    <meta name="keywords" content="必慕科技">
-    <meta name="description" content="必慕科技">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link rel="icon" type="image/png" href="http://www.techbimu.com/111.png">
-    <link href="{{ url_for('static', filename='home/assets/css/Style.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='home/assets/css/iconfont.css') }}">
-    <link href="{{ url_for('static', filename='home/assets/css/foucs.css') }}" rel="stylesheet">
-</head>
-<body>
+{% extends "home/common/app.html" %}
 
-<div class="pz_top">
-    <div class="w_1200">
-        <div class="c_1200_1">
-            <div class="logo">
-                <a href="http://www.techbimu.com/"
-                   style="width: 271px;height: 92px;display: block;position: relative;top: 10px;">
-                    <img style="width: 130%;position: absolute;bottom: 7px;" src="/static/home/assets/images/logo.png">
-                </a>
-            </div>
-            <div class="r_625">
-                <div class="wx">
-                    <div class="z1">
-                        <p>
-                            <a href="http://www.techbimu.com/contact" target="_blank"></a>
-                            <img src="http://www.techbimu.com/21" width="1" height="15">
-                        </p>
-                    </div>
-                    <div class="z2">
-                        <p>
-                            <a href="http://www.techbimu.com/contact" target="_blank"></a>
-                            <img src="http://www.techbimu.com/21" width="1" height="15">
-                        </p>
-                    </div>
-                    <div class="z3">
-                        <a href="http://www.techbimu.com/21#"></a>
-                        <div class="pf" style="display:none;">
-                            <p>
-                                <img src="/static/home/assets/images/weixinma.jpeg" width="117" height="136"
-                                     title="jye_03.jpg">
-                            </p>
-                        </div>
-                    </div>
+{% block content %}
+    <div class="pz_main">
+        <div class="w_1200">
+            <div class="c_1200_5">
+                <div class="dz"><a href="http://www.techbimu.com/">首页</a> &gt; <a href="http://www.techbimu.com/type/1"
+                                                                                  target="_self">项目</a> &gt; 类型
                 </div>
-                <div class="jh">
-                    <div class="menu">
-                        <ul>
-                            <li id="nav1" class="nli">
-                                <div class="rb"><a id="cntit1" href="http://www.techbimu.com/">首页</a>
-                                </div>
-                            </li>
+                <div class="d_1200_1">
+                    <div class="al">
+                        <div id="slideBox" class="slideBox">
+                            <div class="bd">
+                                <ul style="position: relative; width: 809px; height: 456px;">
 
-                            <li id="nav2" class="nli on">
-                                <div class="rb"><a id="cntit2" href="http://www.techbimu.com/type/1">项目</a></div>
-                            </li>
+                                    {% for gallery in galleries %}
+                                        <li style="position: absolute; width: 809px; left: 0px; top: 0px; display: none;">
+                                            <img src="{{ gallery.imgs }}" width="809" height="453">
+                                        </li>
+                                    {% endfor %}
 
-                            <li id="nav6" class="nli">
-                                <div class="rb"><a id="cntit2"
-                                                   href="http://model.techbimu.com:808/account/Login?ReturnUrl=%2FHome%2FIndex">协同平台</a>
-                                </div>
-                            </li>
-
-                            <li id="nav3" class="nli">
-                                <div class="rb"><a id="cntit3" href="http://www.techbimu.com/consult">咨询服务</a></div>
-                            </li>
-
-                            <li id="nav4" class="nli">
-                                <div class="rb"><a id="cntit4" href="http://www.techbimu.com/training">培训服务</a></div>
-                            </li>
-
-                            <li id="nav5" class="nli">
-                                <div class="rb"><a id="cntit5" href="http://www.techbimu.com/about">关于我们</a></div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="pz_main">
-    <div class="w_1200">
-        <div class="c_1200_5">
-            <div class="dz"><a href="http://www.techbimu.com/">首页</a> &gt; <a href="http://www.techbimu.com/type/1"
-                                                                              target="_self">项目</a> &gt; 类型
-            </div>
-            <div class="d_1200_1">
-                <div class="al">
-                    <div id="slideBox" class="slideBox">
-                        <div class="bd">
-                            <ul style="position: relative; width: 809px; height: 456px;">
-
-                                {% for gallery in galleries %}
-                                    <li style="position: absolute; width: 809px; left: 0px; top: 0px; display: none;">
-                                        <img src="{{ gallery.imgs }}" width="809" height="453">
-                                    </li>
-                                {% endfor %}
-
-                            </ul>
-                        </div>
-
-                        <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
-                        <a class="prev" href="javascript:void(0)"></a>
-                        <a class="next" href="javascript:void(0)"></a>
-                    </div>
-
-                </div>
-                <div class="al2">
-                    <div id="content2">
-                        <div class="al2_1">
-                            <div class="t_a12_1">
-                                <div class="z1">{{ project.name }}</div>
-
+                                </ul>
                             </div>
-                            <div id="c1" class="d_a12_1" style="display:block;">
-                                <p style="text-align: left; text-indent: 2em;"><span
-                                        style="color: rgb(51, 51, 51); font-family: arial, helvetica,sans-serif; font-size: 12px;"></span>
-                                </p>
-                                <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
+
+                            <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+                            <a class="prev" href="javascript:void(0)"></a>
+                            <a class="next" href="javascript:void(0)"></a>
+                        </div>
+
+                    </div>
+                    <div class="al2">
+                        <div id="content2">
+                            <div class="al2_1">
+                                <div class="t_a12_1">
+                                    <div class="z1">{{ project.name }}</div>
+
+                                </div>
+                                <div id="c1" class="d_a12_1" style="display:block;">
+                                    <p style="text-align: left; text-indent: 2em;"><span
+                                            style="color: rgb(51, 51, 51); font-family: arial, helvetica,sans-serif; font-size: 12px;"></span>
+                                    </p>
+                                    <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
                                     <span style="color: rgb(0, 0, 0); font-size: 12px;"><span
                                             style="font-family: 微软雅黑; font-size: 12px; font-weight: bold;">项&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;目：</span><span
                                             style="font-family: 微软雅黑; font-size: 12px;">{{ project.name }}</span></span>
-                                </p>
-                                <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
+                                    </p>
+                                    <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
                                     <span style="color: rgb(0, 0, 0); font-size: 12px;"><span
                                             style="color: rgb(0, 0, 0); font-family: 微软雅黑; font-weight: bold;">项目类型：</span><span
                                             style="color: rgb(0, 0, 0); font-family: 微软雅黑;">{{ project.type.name }}</span> &nbsp;</span>
-                                </p>
-                                <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
+                                    </p>
+                                    <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
                                     <span style="color: rgb(0, 0, 0); font-size: 12px;"><span
                                             style="color: rgb(0, 0, 0); font-family: 微软雅黑; font-weight: bold;">服务范围：</span><span
                                             style="color: rgb(0, 0, 0); font-family: 微软雅黑;">{{ project.service }}</span></span>
-                                </p>
-                                <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
+                                    </p>
+                                    <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
                                     <span style="color: rgb(0, 0, 0); font-size: 12px;"><span
                                             style="color: rgb(0, 0, 0); font-family: 微软雅黑; font-weight: bold;">业主单位：</span><span
                                             style="color: rgb(0, 0, 0); font-family: 微软雅黑;">{{ project.unit }}</span></span>
-                                </p>
-                                <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
+                                    </p>
+                                    <p style="text-align: left; line-height: 20px; margin-top: 0px; margin-bottom: 0px; vertical-align: baseline; unicode-bidi: embed; direction: ltr;">
                                     <span style="color: rgb(0, 0, 0); font-size: 12px;"><span
                                             style="color: rgb(0, 0, 0); font-family: 微软雅黑;"><br></span></span>
-                                </p>
+                                    </p>
 
-                                <p style="text-align: left; line-height: normal; text-indent: 0em;">
-                                    <span style="color: black; font-family: arial, helvetica,sans-serif; font-size: 12px;"></span>
-                                    {{ project.description|safe }}
-                                </p>
-                                <p style="line-height: normal;">&nbsp;</p>
+                                    <p style="text-align: left; line-height: normal; text-indent: 0em;">
+                                        <span style="color: black; font-family: arial, helvetica,sans-serif; font-size: 12px;"></span>
+                                        {{ project.description|safe }}
+                                    </p>
+                                    <p style="line-height: normal;">&nbsp;</p>
+                                </div>
+                                <div class="cq"><a href="http://www.techbimu.com/type/1">返回</a></div>
                             </div>
-                            <div class="cq"><a href="http://www.techbimu.com/type/1">返回</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="c_1200_6" style="padding-bottom:30px;">
-            <div class="t_1200">项目</div>
-            <div class="d_1200">
-                <ul>
-                    {% for other in other_projects %}
-                        <li>
-                            <div class="img"><a href="http://www.techbimu.com/22"><img
-                                    src="{{ other.image }}"
-                                    width="236"
-                                    height="134"></a>
-                                <div class="pf"></div>
-                            </div>
-                            <div class="z1"><a href="http://www.techbimu.com/22">{{ other.name }}</a></div>
-                        </li>
-                    {% endfor %}
+            <div class="c_1200_6" style="padding-bottom:30px;">
+                <div class="t_1200">项目</div>
+                <div class="d_1200">
+                    <ul>
+                        {% for other in other_projects %}
+                            <li>
+                                <div class="img"><a href="http://www.techbimu.com/22"><img
+                                        src="{{ other.image }}"
+                                        width="236"
+                                        height="134"></a>
+                                    <div class="pf"></div>
+                                </div>
+                                <div class="z1"><a href="http://www.techbimu.com/22">{{ other.name }}</a></div>
+                            </li>
+                        {% endfor %}
 
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
+{% endblock %}
 
-<div class="pz_down">
-    <div class="w_1200">
-        <div class="c_1200_4">
-            <div class="z1"><p>COPYRIGHT©️武汉必慕智联科技工程有限公司 版权所有<a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备16006524号-1</a>
-            </p></div>
-            <div class="z2"><a href="http://www.techbimu.com/21" target="_blank">Powered By Holy</a></div>
-        </div>
-    </div>
-</div>
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+                $.foucs({direction: 'left'});
 
+                $(".d_1200 li").mouseover(function () {
+                    $(this).find(".z1 a").css("color", "#737578")
+                });
+                $(".d_1200 li").mouseout(function () {
+                    $(this).find(".z1 a").css("color", "#585858")
+                });
 
-<script src="/static/home/assets/js/jquery.min.js"></script>
-<script src="/static/home/assets/js/jquery.SuperSlide.2.1.1.js"></script>
-<script src="/static/home/assets/js/html5.js"></script>
-<script src="/static/home/assets/js/jquery.foucs.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    $(document).ready(
-        function () {
-            $.foucs({direction: 'left'});
-
-            $(".d_1200 li").mouseover(function () {
-                $(this).find(".z1 a").css("color", "#737578")
-            });
-            $(".d_1200 li").mouseout(function () {
-                $(this).find(".z1 a").css("color", "#585858")
+                $(".wx .z3").mouseover(function () {
+                    $(this).find(".pf").show();
+                });
+                $(".wx .z3").mouseout(function () {
+                    $(this).find(".pf").hide();
+                });
             });
 
-            $(".wx .z3").mouseover(function () {
-                $(this).find(".pf").show();
-            });
-            $(".wx .z3").mouseout(function () {
-                $(this).find(".pf").hide();
-            });
+        jQuery(".slideBox").slide({
+            mainCell: ".bd ul",
+            autoPlay: true,
+            effect: "fold",
+            delayTime: 1500,
+            interTime: 6000
         });
-</script>
-<script type="text/javascript">
-    jQuery(".slideBox").slide({
-        mainCell: ".bd ul",
-        autoPlay: true,
-        effect: "fold",
-        delayTime: 1500,
-        interTime: 6000
-    });
-    $("#nav2").addClass("on");
-</script>
-</body>
-</html>
+        $("#nav2").addClass("on");
+    </script>
+{% endblock %}

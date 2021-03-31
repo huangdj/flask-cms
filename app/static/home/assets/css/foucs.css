@@ -6,9 +6,9 @@
 .clearfix { zoom: 1; }
 
 .icon-arrow-a-left, .icon-arrow-a-right { }
-.icon-arrow-a-left {background: url(images/b_jt1.png) no-repeat; height: 54px; width: 32px; left:-50px;}
+.icon-arrow-a-left {background: url(../images/b_jt1.png) no-repeat; height: 54px; width: 32px; left:-50px;}
     .icon-arrow-a-left:hover, .icon-arrow-a-left.arrow-a-left_hover, .icon-arrow-a-left.arrow-a-left-hover {  }
-.icon-arrow-a-right {background: url(images/b_jt2.png) no-repeat;  height: 54px; width: 32px;  right:-50px; }
+.icon-arrow-a-right {background: url(../images/b_jt2.png) no-repeat;  height: 54px; width: 32px;  right:-50px; }
     .icon-arrow-a-right:hover, .icon-arrow-a-right.arrow-a-right_hover, .icon-arrow-a-right.arrow-a-right-hover {  }
 
 

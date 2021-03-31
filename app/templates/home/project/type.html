@@ -1,0 +1,132 @@
+{% extends "home/common/app.html" %}
+
+{% block content %}
+    <div class="pz_main">
+        <div class="w_1200">
+            <div class="c_1200_5">
+                <div class="dz"><a href="http://www.techbimu.com/">首页</a> &gt; <a href="http://www.techbimu.com/type/1"
+                                                                                  target="_self">项目</a> &gt; <a
+                        href="http://www.techbimu.com/type/1" target="_self">类型</a></div>
+                <div class="t_1200">
+                    <ul>
+                        <li><a href="/type/1" class="hover">按类型</a></li>
+                        <li><a href="/area">按地区</a></li>
+                    </ul>
+                    <div class="sj">
+                        {% for type in types %}
+                            <a id="lx5" class="is_hover" href="/type/{{ type.id }}"
+                               style="padding-left:0px;">{{ type.name }}
+                                |</a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="d_1200_2">
+                    <div class="img" style="padding-bottom:20px;">
+                        <div style="width:100%; margin:0 auto; overflow: hidden; zoom: 1; position: relative;"
+                             id="thdp">
+                            <div id="index_b_hero">
+                                <div class="hero-wrap">
+                                    <ul class="heros clearfix">
+
+                                        {% for project in projects %}
+                                            <li class="hero" style="left: -1704.79px;">
+                                                <a href="/show/{{ project.id }}"><img
+                                                        src="{{ project.image }}"
+                                                        class="thumb"></a><span>{{ project.name }} | {{ project.area.name }}</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="helper">
+                                    <div class="mask-right"></div>
+                                    <div class="mask-left"></div>
+
+                                    <a href="javascript:;" class="next icon-arrow-a-left"></a>
+                                    <a href="javascript:;" class="prev icon-arrow-a-right"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c_1200_6">
+                <div class="t_1200">项目</div>
+                <div class="d_1200">
+                    <ul>
+                        <li>
+                            <div class="img"><a href="http://www.techbimu.com/22"><img
+                                    src=""
+                                    width="236"
+                                    height="134"></a>
+                                <div class="pf"></div>
+                            </div>
+                            <div class="z1"><a href="http://www.techbimu.com/22">中海苏州思安街超高层</a></div>
+                        </li>
+                        <li>
+                            <div class="img"><a href="http://www.techbimu.com/4"><img
+                                    src="" width="236"
+                                    height="134"></a>
+                                <div class="pf"></div>
+                            </div>
+                            <div class="z1"><a href="http://www.techbimu.com/4">中海昆明寰宇中心</a></div>
+                        </li>
+                        <li>
+                            <div class="img"><a href="http://www.techbimu.com/3"><img
+                                    src=""
+                                    width="236"
+                                    height="134"></a>
+                                <div class="pf"></div>
+                            </div>
+                            <div class="z1"><a href="http://www.techbimu.com/3">中海成都中海财富中心</a></div>
+                        </li>
+                        <li>
+                            <div class="img"><a href="http://www.techbimu.com/2"><img
+                                    src=""
+                                    width="236"
+                                    height="134"></a>
+                                <div class="pf"></div>
+                            </div>
+                            <div class="z1"><a href="http://www.techbimu.com/2">湖北荆楚大厦</a></div>
+                        </li>
+
+                    </ul>
+                    <div class="pz_fy">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(
+            function () {
+                $.foucs({direction: 'left'});
+
+                $(".d_1200 li").mouseover(function () {
+                    $(this).find(".z1 a").css("color", "#737578")
+                });
+                $(".d_1200 li").mouseout(function () {
+                    $(this).find(".z1 a").css("color", "#585858")
+                });
+
+                $(".wx .z3").mouseover(function () {
+                    $(this).find(".pf").show();
+                });
+                $(".wx .z3").mouseout(function () {
+                    $(this).find(".pf").hide();
+                });
+            });
+        $("#nav2").addClass("on");
+        var x = location.href
+        var type_id = x.split('/type/')[1]
+        if (type_id == 3) {
+            {#console.log(9999)#}
+            $('.is_hover').eq(1).addClass('hover')
+        }
+    </script>
+{% endblock %}
