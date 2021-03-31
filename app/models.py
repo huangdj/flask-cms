@@ -72,7 +72,7 @@ class Gallery(BaseModel, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)  # 编号
     project_id = db.Column(db.Integer, db.ForeignKey('project.id', ondelete='cascade'))  # 所属项目
-    imgs = db.Column(db.String(255), unique=True, nullable=False)  # 相册地址
+    imgs = db.Column(db.String(255), nullable=False)  # 相册地址
 
 
 class Train(BaseModel, db.Model):

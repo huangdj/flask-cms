@@ -174,7 +174,9 @@ def project_count():
         i = m + 1
         month = '0' + (str(i)) if len(str(i)) == 1 else i
         res = str(year) + '-' + str(month) + '%'
+        # print(res)
         number = Project.query.filter(Project.create_time.like(res)).count()
+        # print(number)
         for n in str(number):
             num.append(n)
 
