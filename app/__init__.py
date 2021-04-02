@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session  # 导入session扩展
 from redis import StrictRedis  # 导入 Redis
 from datetime import datetime
+from flask_cors import *  # 导入跨域包
 
 app = Flask(__name__)
 db = SQLAlchemy()
@@ -14,6 +15,7 @@ redis_store = StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT, decode
 
 # 定义工厂函数，生产app
 def create_app(config_name):
+    CORS(app, supports_credentials=True)  # 获取实例
     app.config.from_object(config[config_name])  # 加载配置文件挪到工厂函数中
 
     db.init_app(app)  # 通过 init_app 去实例化db对象
@@ -64,5 +66,9 @@ def create_app(config_name):
     # 后台培训服务蓝图
     from app.admin.train import train_blue
     app.register_blueprint(train_blue)
+
+    # 留言板接口
+    from app.api import api_blue
+    app.register_blueprint(api_blue)
 
     return app  # 最后返回当前app

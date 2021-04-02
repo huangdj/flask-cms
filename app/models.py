@@ -28,8 +28,8 @@ class Type(BaseModel, db.Model):
     __tablename__ = "type"
 
     id = db.Column(db.Integer, primary_key=True)  # 编号
-    name = db.Column(db.String(255), unique=True, nullable=False)  # 类型名称
-    image = db.Column(db.String(255), unique=True, nullable=False)  # 缩略图
+    name = db.Column(db.String(255), nullable=False)  # 类型名称
+    image = db.Column(db.String(255), nullable=False)  # 缩略图
 
 
 class Area(BaseModel, db.Model):
@@ -37,7 +37,7 @@ class Area(BaseModel, db.Model):
     __tablename__ = "area"
 
     id = db.Column(db.Integer, primary_key=True)  # 编号
-    name = db.Column(db.String(255), unique=True, nullable=False)  # 类型名称
+    name = db.Column(db.String(255), nullable=False)  # 类型名称
 
 
 class Project(BaseModel, db.Model):
@@ -93,3 +93,24 @@ class Test(BaseModel, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(255), nullable=False)  # 类型名称
+
+
+class Chat(BaseModel, db.Model):
+    """留言表"""
+    __tablename__ = "chat"
+
+    id = db.Column(db.Integer, primary_key=True)  # 编号
+    type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=False)  # 所属类型
+    title = db.Column(db.String(255), nullable=False)  # 标题
+    content = db.Column(db.Text(), nullable=False)  # 内容
+    is_show = db.Column(db.Integer, default=1, nullable=False)  # 是否显示
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "type_id": self.type_id,
+            "title": self.title,
+            "content": self.content,
+            "is_show": self.is_show,
+            "create_time": self.create_time.strftime("%Y-%m-%d")
+        }

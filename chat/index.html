@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>留言板</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .glyphicon-ok {
+            color: #08c;
+        }
+
+        .glyphicon-remove {
+            color: #fc5531;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 style="text-align: center">留言板</h2>
+    <div class="bs-example" data-example-id="striped-table">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>标题</th>
+                <th>所属类型</th>
+                <th>内容</th>
+                <th>是否显示</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!--发布留言-->
+    <form class="form-horizontal" style="margin-top: 150px;">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">标题</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" placeholder="请输入标题">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">所属类型</label>
+            <div class="col-sm-10">
+                <select class="form-control type_id" id="choose_type">
+                    <option value="0">请选择</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">内容</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="3" id="content" placeholder="请输入内容"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">是否显示</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" name="is_show" value="1" checked> 是
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="is_show" value="0"> 否
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-info submit">提 交</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--编辑留言-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="exampleModalLabel">编辑留言</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="edit_id">
+                    <div class="form-group">
+                        <label class="control-label">标题:</label>
+                        <input type="text" class="form-control" id="edit_title">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">所属类型：</label>
+                        <select class="form-control type_id" id="edit_choose_type">
+                            <option value="0">请选择</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">内容：</label>
+                        <textarea class="form-control" rows="3" id="edit_content"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">是否显示：</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="edit_is_show" value="1" checked> 是
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="edit_is_show" value="0"> 否
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary update_chat">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $.get(`http://127.0.0.1:5000/api`, function (data) {
+            var html = ''
+            $.each(data.chats, function (key, value) {
+                html += '<tr id="c_' + value.id + '" data-id="' + value.id + '">' +
+                    '<th scope="row">' + value.id + '</th>' +
+                    '<td class="title">' + value.title + '</td>'
+
+                if (value.type_id == 3) {
+                    html += '<td class="type_name">商业项目</td>'
+                } else if (value.type_id == 4) {
+                    html += '<td class="type_name">办公项目</td>'
+                } else if (value.type_id == 5) {
+                    html += '<td class="type_name">市政/公建项目</td>'
+                } else {
+                    html += '<td class="type_name">住宅项目</td>'
+                }
+
+                html += '<td class="content">' + value.content + '</td>'
+
+                if (value.is_show == 1) {
+                    html += '<td id="is_show"><span class="glyphicon glyphicon-ok"></span></td>'
+                } else {
+                    html += '<td id="is_show_false"><span class="glyphicon glyphicon-remove"></span></td>'
+                }
+
+                html += '<td>' + date_time(value.create_time) + '</td>' +
+                    '<td>' +
+                    '<a href="javascript:;" class="edit" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a> ' +
+                    '<a href="javascript:;" class="del_one" data-id="' + value.id + '"><span class="glyphicon glyphicon-trash"></span></a>' +
+                    '</td>' +
+                    '</tr>'
+            })
+
+            $('tbody').append(html)
+        })
+    })
+
+    function date_time(create_time) {
+        const d = new Date(create_time)
+        const resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
+        return resDate
+    }
+
+    function p(s) {
+        return s < 10 ? '0' + s : s
+    }
+
+    $.get('http://127.0.0.1:5000/api/type', function (res) {
+        $.each(res.types, function (key, value) {
+            var html = '<option value="' + value.id + '">' + value.name + '</option>'
+            $(".type_id").append(html);
+        })
+    })
+
+    // 发布留言
+    $('.submit').click(function () {
+        var info = {
+            title: $("#title").val(),
+            type_id: $("#choose_type").val(),
+            content: $("#content").val(),
+            is_show: $("input[name='is_show']:checked").val()
+        }
+        // 表单验证，自行完成
+        if (info.title == "") {
+            alert('请输入标题')
+            return false
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'http://127.0.0.1:5000/api/create',
+            data: JSON.stringify(info),
+            success: function (data) {
+                var html = ''
+                html += '<tr>' +
+                    '<th scope="row">' + data.chat.id + '</th>' +
+                    '<td>' + data.chat.title + '</td>'
+
+                if (data.chat.type_id == 3) {
+                    html += '<td class="type_name">商业项目</td>'
+                } else if (data.chat.type_id == 4) {
+                    html += '<td class="type_name">办公项目</td>'
+                } else if (data.chat.type_id == 5) {
+                    html += '<td class="type_name">市政/公建项目</td>'
+                } else {
+                    html += '<td class="type_name">住宅项目</td>'
+                }
+
+                html += '<td class="content">' + data.chat.content + '</td>'
+
+                if (data.chat.is_show == 1) {
+                    html += '<td id="is_show"><span class="glyphicon glyphicon-ok"></span></td>'
+                } else {
+                    html += '<td id="is_show_false"><span class="glyphicon glyphicon-remove"></span></td>'
+                }
+
+                html += '<td>' + data.chat.create_time + '</td>' +
+                    '<td>' +
+                    '<a href="javascript:;" class="edit" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a> ' +
+                    '<a href="javascript:;" class="del_one" data-id="' + data.chat.id + '"><span class="glyphicon glyphicon-trash"></span></a>' +
+                    '</td>' +
+                    '</tr>'
+
+                $('tbody').append(html)
+
+                // 清空表单值
+                $("#title").val('')
+                $("#choose_type").val(0)
+                $("#content").val('')
+                $("input[name='is_show']").get(0).checked = true
+            }
+        })
+    })
+
+    // 编辑留言
+    $(document).on("click", ".edit", function () {
+        var id = $(this).parents('tr').data('id')
+        $.get('http://127.0.0.1:5000/api/edit/' + id, function (res) {
+            // 设置数据到模态框
+            $("#edit_id").val(id)
+            $("#edit_title").val(res.chat.title)
+            $("#edit_choose_type").val(res.chat.type_id)
+            $("#edit_content").val(res.chat.content)
+            if (res.chat.is_show == 1) {
+                $("input[name='edit_is_show'][value='1']").attr("checked", true)
+            } else {
+                $("input[name='edit_is_show'][value='0']").attr("checked", true)
+            }
+        })
+    })
+
+    // 执行编辑
+    $(document).on("click", ".update_chat", function () {
+        // 获取数据
+        var info = {
+            id: $("#edit_id").val(),
+            title: $("#edit_title").val(),
+            type_id: $("#edit_choose_type").val(),
+            content: $("#edit_content").val(),
+            is_show: $("input[name='edit_is_show']:checked").val()
+        }
+
+        $.post('http://127.0.0.1:5000/api/update/' + info.id, JSON.stringify(info), function (data) {
+            $("#editModal").modal('hide');
+            $("#c_" + info.id).find(".title").text(info.title);
+            $("#c_" + info.id).find(".content").text(info.content);
+            if (info.type_id == 3) {
+                $("#c_" + info.id).find(".type_name").text('商业项目');
+            } else if (info.type_id == 4) {
+                $("#c_" + info.id).find(".type_name").text('办公项目');
+            } else if (info.type_id == 5) {
+                $("#c_" + info.id).find(".type_name").text('市政/公建项目');
+            } else {
+                $("#c_" + info.id).find(".type_name").text('住宅项目');
+            }
+
+            if (info.is_show == 1) {
+                $("#c_" + info.id).find("#is_show_false").html('<span class="glyphicon glyphicon-ok"></span>')
+            } else {
+                $("#c_" + info.id).find("#is_show").html('<span class="glyphicon glyphicon-remove"></span>')
+            }
+        })
+    })
+
+    // 删除
+    $(document).on("click", ".del_one", function () {
+        if (confirm('确定要删除么?')) {
+            var id = $(this).data('id')
+            $.ajax({
+                type: 'DELETE',
+                url: 'http://127.0.0.1:5000/api/delete/' + id,
+                success: function () {
+                    $("#c_" + id).remove()
+                }
+            })
+        }
+    })
+</script>
+</body>
+</html>
